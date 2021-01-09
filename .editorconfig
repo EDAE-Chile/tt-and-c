@@ -1,0 +1,23 @@
+# http://editorconfig.org
+# config mínima compatible con casi cualquier editor
+root = true
+
+[*]
+indent_style = space
+indent_size = 4
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# JSON es inconsistente con lineas
+[*.json]
+insert_final_newline = ignore
+
+# Los makefiles usan tabs
+[Makefile]
+indent_style = tab
+
+# Convención
+[*.md]
+trim_trailing_whitespace = false
