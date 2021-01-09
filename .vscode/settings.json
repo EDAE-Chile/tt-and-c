@@ -1,0 +1,5 @@
+{
+    "files.eol": "\n",
+    "editor.tabSize": 4,
+    "arduino.additionalUrls": "https://raw.githubusercontent.com/sparkfun/Arduino_Boards/master/IDE_Board_Manager/package_sparkfun_index.json"
+}
