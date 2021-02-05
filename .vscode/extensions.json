@@ -1,6 +1,6 @@
 {
-    "recommendations": [
-        "vsciot-vscode.vscode-arduino",
-        "editorconfig.editorconfig",
-    ]
+  "recommendations": [
+    "vsciot-vscode.vscode-arduino",
+    "editorconfig.editorconfig",
+  ]
 }
