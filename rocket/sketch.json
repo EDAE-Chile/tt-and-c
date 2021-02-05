@@ -1,0 +1,7 @@
+{
+  "cpu": {
+    "fqbn": "SparkFun:samd:samd21_proRF",
+    "name": "SparkFun SAMD21 Pro RF",
+    "port": "serial:///dev/ttyACM0"
+  }
+}
