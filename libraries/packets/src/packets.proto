@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+// Defines the packet sent from the rocket to groundstation with telemetry data.
+message TelemetryPacket {
+  // Status of the main control systems: ignition, parachute control and payload.
+  bool ignition = 1;
+  bool parachuteOpen = 2;
+  bool payloadSeparated = 3;
+
+  // GPS module status (Ublox Neo 7M)
+  enum GPSStatus {
+    OPERATIONAL = 0;
+    SIGNAL_ERROR = 1;
+    FIX_ERROR = 2;
+    INTERNAL_ERROR = 3;
+  }
+  GPSStatus gpsReportingStatus = 4;
+
+  // Current location according to the GPS Module (Ublox Neo 7M)
+  optional double latitude = 5;
+  optional double longitude = 6;
+
+  // GSM/GPRS/3G module status (3GBee)
+  bool mobileStatus = 7;
+  float signalStrength = 8;
+
+  // Sensor status
+  bool imuStatus = 9;
+  bool barometerStatus = 10;
+  bool thermometerStatus = 11;
+
+  // 9-axis IMU Sensor Data (MPU-9250)
+  message IMU {
+    float acceleration_x = 1;
+    float acceleration_y = 2;
+    float acceleration_z = 3;
+
+    float gyroscope_x = 4;
+    float gyroscope_y = 5;
+    float gyroscopy_z = 6;
+
+    float magnetometer_x = 7;
+    float magnetometer_y = 8;
+    float magnetometer_z = 9;
+
+    float secondaryTemperature = 10;
+  }
+
+  IMU imuData = 12;
+
+  // Pressure Sensor Data (MPL3115A2)
+  float airPressure = 13;
+  float computedHeight = 14;
+}
