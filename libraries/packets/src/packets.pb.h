@@ -33,25 +33,25 @@ typedef struct _TelemetryPacket_IMU {
 
 typedef struct _TelemetryPacket {
     bool ignition;
-    bool parachuteOpen;
-    bool payloadSeparated;
-    TelemetryPacket_GPSStatus gpsReportingStatus;
+    bool parachute_open;
+    bool payload_separated;
+    TelemetryPacket_GPSStatus gps_reporting_status;
     bool has_latitude;
     double latitude;
     bool has_longitude;
     double longitude;
     bool mobileStatus;
-    bool has_signalStrength;
-    float signalStrength;
-    bool imuStatus;
-    bool barometerStatus;
-    bool thermometerStatus;
-    bool has_imuData;
-    TelemetryPacket_IMU imuData;
-    bool has_airPressure;
-    float airPressure;
-    bool has_computedHeight;
-    float computedHeight;
+    bool has_signal_strength;
+    float signal_strength;
+    bool imu_Status;
+    bool barometer_status;
+    bool thermometer_status;
+    bool has_imu_data;
+    TelemetryPacket_IMU imu_data;
+    bool has_air_pressure;
+    float air_pressure;
+    bool has_computed_height;
+    float computed_height;
 } TelemetryPacket;
 
 
@@ -83,39 +83,39 @@ extern "C" {
 #define TelemetryPacket_IMU_magnetometer_z_tag   9
 #define TelemetryPacket_IMU_secondary_temperature_tag 10
 #define TelemetryPacket_ignition_tag             1
-#define TelemetryPacket_parachuteOpen_tag        2
-#define TelemetryPacket_payloadSeparated_tag     3
-#define TelemetryPacket_gpsReportingStatus_tag   4
+#define TelemetryPacket_parachute_open_tag       2
+#define TelemetryPacket_payload_separated_tag    3
+#define TelemetryPacket_gps_reporting_status_tag 4
 #define TelemetryPacket_latitude_tag             5
 #define TelemetryPacket_longitude_tag            6
 #define TelemetryPacket_mobileStatus_tag         7
-#define TelemetryPacket_signalStrength_tag       8
-#define TelemetryPacket_imuStatus_tag            9
-#define TelemetryPacket_barometerStatus_tag      10
-#define TelemetryPacket_thermometerStatus_tag    11
-#define TelemetryPacket_imuData_tag              12
-#define TelemetryPacket_airPressure_tag          13
-#define TelemetryPacket_computedHeight_tag       14
+#define TelemetryPacket_signal_strength_tag      8
+#define TelemetryPacket_imu_Status_tag           9
+#define TelemetryPacket_barometer_status_tag     10
+#define TelemetryPacket_thermometer_status_tag   11
+#define TelemetryPacket_imu_data_tag             12
+#define TelemetryPacket_air_pressure_tag         13
+#define TelemetryPacket_computed_height_tag      14
 
 /* Struct field encoding specification for nanopb */
 #define TelemetryPacket_FIELDLIST(X, a) \
 X(a, STATIC,   SINGULAR, BOOL,     ignition,          1) \
-X(a, STATIC,   SINGULAR, BOOL,     parachuteOpen,     2) \
-X(a, STATIC,   SINGULAR, BOOL,     payloadSeparated,   3) \
-X(a, STATIC,   SINGULAR, UENUM,    gpsReportingStatus,   4) \
+X(a, STATIC,   SINGULAR, BOOL,     parachute_open,    2) \
+X(a, STATIC,   SINGULAR, BOOL,     payload_separated,   3) \
+X(a, STATIC,   SINGULAR, UENUM,    gps_reporting_status,   4) \
 X(a, STATIC,   OPTIONAL, DOUBLE,   latitude,          5) \
 X(a, STATIC,   OPTIONAL, DOUBLE,   longitude,         6) \
 X(a, STATIC,   SINGULAR, BOOL,     mobileStatus,      7) \
-X(a, STATIC,   OPTIONAL, FLOAT,    signalStrength,    8) \
-X(a, STATIC,   SINGULAR, BOOL,     imuStatus,         9) \
-X(a, STATIC,   SINGULAR, BOOL,     barometerStatus,  10) \
-X(a, STATIC,   SINGULAR, BOOL,     thermometerStatus,  11) \
-X(a, STATIC,   OPTIONAL, MESSAGE,  imuData,          12) \
-X(a, STATIC,   OPTIONAL, FLOAT,    airPressure,      13) \
-X(a, STATIC,   OPTIONAL, FLOAT,    computedHeight,   14)
+X(a, STATIC,   OPTIONAL, FLOAT,    signal_strength,   8) \
+X(a, STATIC,   SINGULAR, BOOL,     imu_Status,        9) \
+X(a, STATIC,   SINGULAR, BOOL,     barometer_status,  10) \
+X(a, STATIC,   SINGULAR, BOOL,     thermometer_status,  11) \
+X(a, STATIC,   OPTIONAL, MESSAGE,  imu_data,         12) \
+X(a, STATIC,   OPTIONAL, FLOAT,    air_pressure,     13) \
+X(a, STATIC,   OPTIONAL, FLOAT,    computed_height,  14)
 #define TelemetryPacket_CALLBACK NULL
 #define TelemetryPacket_DEFAULT NULL
-#define TelemetryPacket_imuData_MSGTYPE TelemetryPacket_IMU
+#define TelemetryPacket_imu_data_MSGTYPE TelemetryPacket_IMU
 
 #define TelemetryPacket_IMU_FIELDLIST(X, a) \
 X(a, STATIC,   SINGULAR, FLOAT,    acceleration_x,    1) \

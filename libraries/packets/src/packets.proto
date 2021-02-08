@@ -4,8 +4,8 @@ syntax = "proto3";
 message TelemetryPacket {
   // Status of the main control systems: ignition, parachute control and payload.
   bool ignition = 1;
-  bool parachuteOpen = 2;
-  bool payloadSeparated = 3;
+  bool parachute_open = 2;
+  bool payload_separated = 3;
 
   // GPS module status (Ublox Neo 7M)
   enum GPSStatus {
@@ -14,7 +14,7 @@ message TelemetryPacket {
     FIX_ERROR = 2;
     INTERNAL_ERROR = 3;
   }
-  GPSStatus gpsReportingStatus = 4;
+  GPSStatus gps_reporting_status = 4;
 
   // Current location according to the GPS Module (Ublox Neo 7M)
   optional double latitude = 5;
@@ -22,12 +22,12 @@ message TelemetryPacket {
 
   // GSM/GPRS/3G module status (3GBee)
   bool mobileStatus = 7;
-  optional float signalStrength = 8;
+  optional float signal_strength = 8;
 
   // Sensor status
-  bool imuStatus = 9;
-  bool barometerStatus = 10;
-  bool thermometerStatus = 11;
+  bool imu_Status = 9;
+  bool barometer_status = 10;
+  bool thermometer_status = 11;
 
   // 9-axis IMU Sensor Data (MPU-9250)
   message IMU {
@@ -46,11 +46,11 @@ message TelemetryPacket {
     float secondary_temperature = 10;
   }
 
-  optional IMU imuData = 12;
+  optional IMU imu_data = 12;
 
   // Pressure Sensor Data (MPL3115A2)
-  optional float airPressure = 13;
+  optional float air_pressure = 13;
 
   // Based on sensor fusion
-  optional float computedHeight = 14;
+  optional float computed_height = 14;
 }
