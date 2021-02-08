@@ -20,11 +20,11 @@ message TelemetryPacket {
   optional float longitude = 6;
 
   // GSM/GPRS/3G module status (3GBee)
-  bool mobileStatus = 7;
+  bool mobile_status = 7;
   optional float signal_strength = 8;
 
   // Sensor status
-  bool imu_Status = 9;
+  bool imu_status = 9;
   bool barometer_status = 10;
   bool thermometer_status = 11;
 

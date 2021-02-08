@@ -39,10 +39,10 @@ typedef struct _TelemetryPacket {
     float latitude;
     bool has_longitude;
     float longitude;
-    bool mobileStatus;
+    bool mobile_status;
     bool has_signal_strength;
     float signal_strength;
-    bool imu_Status;
+    bool imu_status;
     bool barometer_status;
     bool thermometer_status;
     bool has_imu_data;
@@ -86,9 +86,9 @@ extern "C" {
 #define TelemetryPacket_gps_reporting_status_tag 4
 #define TelemetryPacket_latitude_tag             5
 #define TelemetryPacket_longitude_tag            6
-#define TelemetryPacket_mobileStatus_tag         7
+#define TelemetryPacket_mobile_status_tag        7
 #define TelemetryPacket_signal_strength_tag      8
-#define TelemetryPacket_imu_Status_tag           9
+#define TelemetryPacket_imu_status_tag           9
 #define TelemetryPacket_barometer_status_tag     10
 #define TelemetryPacket_thermometer_status_tag   11
 #define TelemetryPacket_imu_data_tag             12
@@ -102,9 +102,9 @@ X(a, STATIC,   SINGULAR, BOOL,     payload_separated,   3) \
 X(a, STATIC,   SINGULAR, UENUM,    gps_reporting_status,   4) \
 X(a, STATIC,   OPTIONAL, FLOAT,    latitude,          5) \
 X(a, STATIC,   OPTIONAL, FLOAT,    longitude,         6) \
-X(a, STATIC,   SINGULAR, BOOL,     mobileStatus,      7) \
+X(a, STATIC,   SINGULAR, BOOL,     mobile_status,     7) \
 X(a, STATIC,   OPTIONAL, FLOAT,    signal_strength,   8) \
-X(a, STATIC,   SINGULAR, BOOL,     imu_Status,        9) \
+X(a, STATIC,   SINGULAR, BOOL,     imu_status,        9) \
 X(a, STATIC,   SINGULAR, BOOL,     barometer_status,  10) \
 X(a, STATIC,   SINGULAR, BOOL,     thermometer_status,  11) \
 X(a, STATIC,   OPTIONAL, MESSAGE,  imu_data,         12) \
