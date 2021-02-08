@@ -2,8 +2,7 @@ syntax = "proto3";
 
 // Defines the packet sent from the rocket to groundstation with telemetry data.
 message TelemetryPacket {
-  // Status of the main control systems: ignition, parachute control and payload.
-  bool ignition = 1;
+  // Status of the main control systems: parachute control and payload separation.
   bool parachute_open = 2;
   bool payload_separated = 3;
 
@@ -17,8 +16,8 @@ message TelemetryPacket {
   GPSStatus gps_reporting_status = 4;
 
   // Current location according to the GPS Module (Ublox Neo 7M)
-  optional double latitude = 5;
-  optional double longitude = 6;
+  optional float latitude = 5;
+  optional float longitude = 6;
 
   // GSM/GPRS/3G module status (3GBee)
   bool mobileStatus = 7;
