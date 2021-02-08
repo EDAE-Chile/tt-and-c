@@ -3,6 +3,7 @@
 #include <RH_RF95.h>
 #include <SPI.h>
 #include <packets.pb.h>
+#include <pb_encode.h>
 
 int counter = 0;
 
