@@ -41,13 +41,16 @@ typedef struct _TelemetryPacket {
     bool has_longitude;
     double longitude;
     bool mobileStatus;
+    bool has_signalStrength;
     float signalStrength;
     bool imuStatus;
     bool barometerStatus;
     bool thermometerStatus;
     bool has_imuData;
     TelemetryPacket_IMU imuData;
+    bool has_airPressure;
     float airPressure;
+    bool has_computedHeight;
     float computedHeight;
 } TelemetryPacket;
 
@@ -63,9 +66,9 @@ extern "C" {
 #endif
 
 /* Initializer values for message structs */
-#define TelemetryPacket_init_default             {0, 0, 0, _TelemetryPacket_GPSStatus_MIN, false, 0, false, 0, 0, 0, 0, 0, 0, false, TelemetryPacket_IMU_init_default, 0, 0}
+#define TelemetryPacket_init_default             {0, 0, 0, _TelemetryPacket_GPSStatus_MIN, false, 0, false, 0, 0, false, 0, 0, 0, 0, false, TelemetryPacket_IMU_init_default, false, 0, false, 0}
 #define TelemetryPacket_IMU_init_default         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-#define TelemetryPacket_init_zero                {0, 0, 0, _TelemetryPacket_GPSStatus_MIN, false, 0, false, 0, 0, 0, 0, 0, 0, false, TelemetryPacket_IMU_init_zero, 0, 0}
+#define TelemetryPacket_init_zero                {0, 0, 0, _TelemetryPacket_GPSStatus_MIN, false, 0, false, 0, 0, false, 0, 0, 0, 0, false, TelemetryPacket_IMU_init_zero, false, 0, false, 0}
 #define TelemetryPacket_IMU_init_zero            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 
 /* Field tags (for use in manual encoding/decoding) */
@@ -103,13 +106,13 @@ X(a, STATIC,   SINGULAR, UENUM,    gpsReportingStatus,   4) \
 X(a, STATIC,   OPTIONAL, DOUBLE,   latitude,          5) \
 X(a, STATIC,   OPTIONAL, DOUBLE,   longitude,         6) \
 X(a, STATIC,   SINGULAR, BOOL,     mobileStatus,      7) \
-X(a, STATIC,   SINGULAR, FLOAT,    signalStrength,    8) \
+X(a, STATIC,   OPTIONAL, FLOAT,    signalStrength,    8) \
 X(a, STATIC,   SINGULAR, BOOL,     imuStatus,         9) \
 X(a, STATIC,   SINGULAR, BOOL,     barometerStatus,  10) \
 X(a, STATIC,   SINGULAR, BOOL,     thermometerStatus,  11) \
 X(a, STATIC,   OPTIONAL, MESSAGE,  imuData,          12) \
-X(a, STATIC,   SINGULAR, FLOAT,    airPressure,      13) \
-X(a, STATIC,   SINGULAR, FLOAT,    computedHeight,   14)
+X(a, STATIC,   OPTIONAL, FLOAT,    airPressure,      13) \
+X(a, STATIC,   OPTIONAL, FLOAT,    computedHeight,   14)
 #define TelemetryPacket_CALLBACK NULL
 #define TelemetryPacket_DEFAULT NULL
 #define TelemetryPacket_imuData_MSGTYPE TelemetryPacket_IMU

@@ -22,7 +22,7 @@ message TelemetryPacket {
 
   // GSM/GPRS/3G module status (3GBee)
   bool mobileStatus = 7;
-  float signalStrength = 8;
+  optional float signalStrength = 8;
 
   // Sensor status
   bool imuStatus = 9;
@@ -49,6 +49,8 @@ message TelemetryPacket {
   optional IMU imuData = 12;
 
   // Pressure Sensor Data (MPL3115A2)
-  float airPressure = 13;
-  float computedHeight = 14;
+  optional float airPressure = 13;
+
+  // Based on sensor fusion
+  optional float computedHeight = 14;
 }
