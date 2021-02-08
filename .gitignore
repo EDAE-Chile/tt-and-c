@@ -81,3 +81,4 @@ $RECYCLE.BIN/
 
 # Custom
 .vscode/c_cpp_properties.json
+libraries/packets/src/packets.nim

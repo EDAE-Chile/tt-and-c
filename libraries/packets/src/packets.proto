@@ -37,16 +37,16 @@ message TelemetryPacket {
 
     float gyroscope_x = 4;
     float gyroscope_y = 5;
-    float gyroscopy_z = 6;
+    float gyroscope_z = 6;
 
     float magnetometer_x = 7;
     float magnetometer_y = 8;
     float magnetometer_z = 9;
 
-    float secondaryTemperature = 10;
+    float secondary_temperature = 10;
   }
 
-  IMU imuData = 12;
+  optional IMU imuData = 12;
 
   // Pressure Sensor Data (MPL3115A2)
   float airPressure = 13;
