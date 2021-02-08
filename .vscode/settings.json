@@ -1,8 +1,0 @@
-{
-  "files.eol": "\n",
-  "editor.tabSize": 2,
-  "arduino.additionalUrls": [
-    "https://raw.githubusercontent.com/sparkfun/Arduino_Boards/master/IDE_Board_Manager/package_sparkfun_index.json"
-  ],
-  "arduino.defaultBaudRate": 115200
-}
