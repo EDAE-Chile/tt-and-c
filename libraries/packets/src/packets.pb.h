@@ -11,10 +11,10 @@
 
 /* Enum definitions */
 typedef enum _TelemetryPacket_GPSStatus {
-    TelemetryPacket_GPSStatus_OPERATIONAL = 0,
+    TelemetryPacket_GPSStatus_INTERNAL_ERROR = 0,
     TelemetryPacket_GPSStatus_SIGNAL_ERROR = 1,
     TelemetryPacket_GPSStatus_FIX_ERROR = 2,
-    TelemetryPacket_GPSStatus_INTERNAL_ERROR = 3
+    TelemetryPacket_GPSStatus_OPERATIONAL = 3
 } TelemetryPacket_GPSStatus;
 
 /* Struct definitions */
@@ -36,9 +36,9 @@ typedef struct _TelemetryPacket {
     bool payload_separated;
     TelemetryPacket_GPSStatus gps_reporting_status;
     bool has_latitude;
-    float latitude;
+    double latitude;
     bool has_longitude;
-    float longitude;
+    double longitude;
     bool mobile_status;
     bool has_signal_strength;
     float signal_strength;
@@ -48,16 +48,16 @@ typedef struct _TelemetryPacket {
     bool has_imu_data;
     TelemetryPacket_IMU imu_data;
     bool has_air_pressure;
-    float air_pressure;
+    double air_pressure;
     bool has_computed_height;
     float computed_height;
 } TelemetryPacket;
 
 
 /* Helper constants for enums */
-#define _TelemetryPacket_GPSStatus_MIN TelemetryPacket_GPSStatus_OPERATIONAL
-#define _TelemetryPacket_GPSStatus_MAX TelemetryPacket_GPSStatus_INTERNAL_ERROR
-#define _TelemetryPacket_GPSStatus_ARRAYSIZE ((TelemetryPacket_GPSStatus)(TelemetryPacket_GPSStatus_INTERNAL_ERROR+1))
+#define _TelemetryPacket_GPSStatus_MIN TelemetryPacket_GPSStatus_INTERNAL_ERROR
+#define _TelemetryPacket_GPSStatus_MAX TelemetryPacket_GPSStatus_OPERATIONAL
+#define _TelemetryPacket_GPSStatus_ARRAYSIZE ((TelemetryPacket_GPSStatus)(TelemetryPacket_GPSStatus_OPERATIONAL+1))
 
 
 #ifdef __cplusplus
@@ -100,15 +100,15 @@ extern "C" {
 X(a, STATIC,   SINGULAR, BOOL,     parachute_open,    2) \
 X(a, STATIC,   SINGULAR, BOOL,     payload_separated,   3) \
 X(a, STATIC,   SINGULAR, UENUM,    gps_reporting_status,   4) \
-X(a, STATIC,   OPTIONAL, FLOAT,    latitude,          5) \
-X(a, STATIC,   OPTIONAL, FLOAT,    longitude,         6) \
+X(a, STATIC,   OPTIONAL, DOUBLE,   latitude,          5) \
+X(a, STATIC,   OPTIONAL, DOUBLE,   longitude,         6) \
 X(a, STATIC,   SINGULAR, BOOL,     mobile_status,     7) \
 X(a, STATIC,   OPTIONAL, FLOAT,    signal_strength,   8) \
 X(a, STATIC,   SINGULAR, BOOL,     imu_status,        9) \
 X(a, STATIC,   SINGULAR, BOOL,     barometer_status,  10) \
 X(a, STATIC,   SINGULAR, BOOL,     thermometer_status,  11) \
 X(a, STATIC,   OPTIONAL, MESSAGE,  imu_data,         12) \
-X(a, STATIC,   OPTIONAL, FLOAT,    air_pressure,     13) \
+X(a, STATIC,   OPTIONAL, DOUBLE,   air_pressure,     13) \
 X(a, STATIC,   OPTIONAL, FLOAT,    computed_height,  14)
 #define TelemetryPacket_CALLBACK NULL
 #define TelemetryPacket_DEFAULT NULL
@@ -136,7 +136,7 @@ extern const pb_msgdesc_t TelemetryPacket_IMU_msg;
 #define TelemetryPacket_IMU_fields &TelemetryPacket_IMU_msg
 
 /* Maximum encoded size of messages (where known) */
-#define TelemetryPacket_size                     91
+#define TelemetryPacket_size                     103
 #define TelemetryPacket_IMU_size                 50
 
 #ifdef __cplusplus

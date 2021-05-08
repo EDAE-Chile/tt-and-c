@@ -1,24 +1,26 @@
 #include <Arduino.h>
 #include <LoRa.h>
-#include <RH_RF95.h>
-#include <SPI.h>
 #include <packets.pb.h>
 #include <pb_arduino.h>
 #include <pb_decode.h>
 
-String version = "v0.0.1";
+String version = "v0.0.2";
 
 void setup() {
     SerialUSB.begin(115200);
-    // IMPORTANT: Remove for production
     while (!SerialUSB)
         ;
 
     SerialUSB.println("[INFO] Initializing ground station TT&C subsystem (" + version +
                       ").");
 
+    LoRa.setTxPower(20);
+    LoRa.setSpreadingFactor(11);
+    LoRa.setSignalBandwidth(500E3);
+    LoRa.setCodingRate4(5);
     LoRa.enableCrc();
     LoRa.setPins(12, -1, 6);
+
     if (!LoRa.begin(915E6)) {
         SerialUSB.println("[ERROR] Couldn't start LoRa radio.");
         while (1)
@@ -36,7 +38,7 @@ void loop() {
         SerialUSB.println("[INFO} Received telemetry packet.");
 
         // Save a buffer for the packet. TODO: Check buffer safety
-        byte packet[128];
+        byte packet[512];
         size_t buffer_size;
         {
             // Use the Stream API to load the packet into a buffer.
@@ -53,17 +55,51 @@ void loop() {
                 SerialUSB.print("[Error] Couldn't decode telemetry packet: ");
                 SerialUSB.println(PB_GET_ERROR(&packet_stream));
             }
-            // Pending more data, ignition data!
-            SerialUSB.print("Received ignition: ");
-            SerialUSB.println(content.ignition);
-            SerialUSB.print("Received parachute_open: ");
+            SerialUSB.print("[DATA] Received parachute_open: ");
             SerialUSB.println(content.parachute_open);
-            SerialUSB.print("Received payload_separated: ");
+            SerialUSB.print("[DATA] Received payload_separated: ");
             SerialUSB.println(content.payload_separated);
+
+            SerialUSB.print("[DATA] Received gps_reporting_status: ");
+            SerialUSB.println(content.gps_reporting_status);
+
+            SerialUSB.print("[DATA] Received latitude: ");
+            SerialUSB.println(content.latitude);
+
+            SerialUSB.print("[DATA] Received longitude: ");
+            SerialUSB.println(content.longitude);
+
+            SerialUSB.print("[DATA] Received mobile_status: ");
+            SerialUSB.println(content.mobile_status);
+
+            SerialUSB.print("[DATA] Received signal_strength: ");
+            SerialUSB.println(content.signal_strength);
+
+            SerialUSB.print("[DATA] Received imu_status: ");
+            SerialUSB.println(content.imu_status);
+
+            SerialUSB.print("[DATA] Received barometer_status: ");
+            SerialUSB.println(content.barometer_status);
+
+            SerialUSB.print("[DATA] Received gps_reporting_status: ");
+            SerialUSB.println(content.thermometer_status);
+
+            SerialUSB.print("[DATA] Received secondary_temperature: ");
+            SerialUSB.println(content.imu_data.secondary_temperature);
+
+            SerialUSB.print("[DATA] Received air_pressure: ");
+            SerialUSB.println(content.air_pressure);
+
+            SerialUSB.print("[DATA] Received computed_height: ");
+            SerialUSB.println(content.computed_height);
         }
         // print RSSI of packet. TODO: Add SNR and other signal metrics
         SerialUSB.print("[INFO] RSSI: ");
         SerialUSB.print(LoRa.packetRssi());
+        SerialUSB.print(", SNR: ");
+        SerialUSB.print(LoRa.packetSnr());
+        SerialUSB.print(", PFR: ");
+        SerialUSB.print(LoRa.packetFrequencyError());
         SerialUSB.println(".");
     }
 }

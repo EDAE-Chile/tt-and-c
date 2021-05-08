@@ -8,16 +8,18 @@ message TelemetryPacket {
 
   // GPS module status (Ublox Neo 7M)
   enum GPSStatus {
-    OPERATIONAL = 0;
+    // Goes first as a better default
+    INTERNAL_ERROR = 0;
     SIGNAL_ERROR = 1;
     FIX_ERROR = 2;
-    INTERNAL_ERROR = 3;
+    OPERATIONAL = 3;
+
   }
   GPSStatus gps_reporting_status = 4;
 
   // Current location according to the GPS Module (Ublox Neo 7M)
-  optional float latitude = 5;
-  optional float longitude = 6;
+  optional double latitude = 5;
+  optional double longitude = 6;
 
   // GSM/GPRS/3G module status (3GBee)
   bool mobile_status = 7;
@@ -30,6 +32,7 @@ message TelemetryPacket {
 
   // 9-axis IMU Sensor Data (MPU-9250)
   message IMU {
+    // m/s^2
     float acceleration_x = 1;
     float acceleration_y = 2;
     float acceleration_z = 3;
@@ -42,14 +45,15 @@ message TelemetryPacket {
     float magnetometer_y = 8;
     float magnetometer_z = 9;
 
+    // Secondary thermometer on the IMU (ºC)
     float secondary_temperature = 10;
   }
 
   optional IMU imu_data = 12;
 
-  // Pressure Sensor Data (MPL3115A2)
-  optional float air_pressure = 13;
+  // Pressure Sensor Data (MPL3115A2, pa)
+  optional double air_pressure = 13;
 
-  // Based on sensor fusion
+  // Computed height based on sensor fusion (m)
   optional float computed_height = 14;
 }

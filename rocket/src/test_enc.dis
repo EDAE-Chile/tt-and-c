@@ -1,0 +1,69 @@
+#include <Arduino.h>
+#include <packets.pb.h>
+#include <SPI.h>
+#include <pb_encode.h>
+#include <pb_decode.h>
+
+String version = "v0.0.2";
+
+void setup() {
+    SerialUSB.begin(115200);
+    delay(1000);
+    if (!SerialUSB) {
+        delay(4000);
+    }
+}
+
+void loop() {
+    // Buffer for the telemetry packet
+    byte packet[512];
+    size_t packet_length;
+
+    {
+        // Allocate space on the stack to store the packet data
+        TelemetryPacket content = TelemetryPacket_init_zero;
+        // Create an output stream based on the buffer
+        pb_ostream_t packet_stream = pb_ostream_from_buffer(packet, sizeof(packet));
+
+        // Fill packet with test data
+        content.has_latitude = true;
+        content.latitude = 1.42;
+        content.has_longitude = true;
+        content.longitude = -70.6075899;
+        content.computed_height = 320.3f;
+
+        // Encode the packet according to our protobuf schema.
+        bool encoding_status =
+        pb_encode(&packet_stream, TelemetryPacket_fields, &content);
+        packet_length = packet_stream.bytes_written;
+
+        // Error checkng
+        if (!encoding_status) {
+            SerialUSB.print("[Error] Couldn't encode telemetry packet: ");
+            SerialUSB.println(PB_GET_ERROR(&packet_stream));
+        }
+    }
+
+    {
+        // Initialize the TelemetryPacket object.
+        TelemetryPacket content = TelemetryPacket_init_zero;
+        //  Push the buffer into a stream.
+        pb_istream_t packet_stream = pb_istream_from_buffer(packet, packet_length);
+        // Decode the buffer according to our protobuf schema.
+        bool decoding_status =
+            pb_decode(&packet_stream, TelemetryPacket_fields, &content);
+        // Error checking
+        if (!decoding_status) {
+            SerialUSB.print("[Error] Couldn't decode telemetry packet: ");
+            SerialUSB.println(PB_GET_ERROR(&packet_stream));
+        }
+
+        SerialUSB.print("[DATA] Received latitude: ");
+        SerialUSB.println(content.gps_reporting_status);
+
+        SerialUSB.print("[DATA] Received longitude: ");
+        SerialUSB.println(content.gps_reporting_status);
+    }
+
+    delay(4000);
+}
